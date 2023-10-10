@@ -21,7 +21,7 @@
                 Manange recipie <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="">Add Ingridients to Shopping List</a></li>
+                <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">Add Ingridients to Shopping List</a></li>
                 <li><a href="">Edit Recipie</a></li>
                 <li><a href="">Delete Recipie</a></li>
             </ul>
@@ -34,7 +34,12 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            Ingridients
+            <ul class="list-group">
+                <li class="list-group-item"
+                *ngFor="let ingredient of selectedRecipie.ingredients">
+                {{ingredient.name}} - ({{ingredient.amount}})
+                </li>
+            </ul>
         </div>
     </div>
 </div>
