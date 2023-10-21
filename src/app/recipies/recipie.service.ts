@@ -5,8 +5,10 @@ import { ShopppingListService } from '../shopping-list/shopping-list.service';
 @Injectable()
 export class RecipieService {
   public recipieSelected = new EventEmitter<Recipie>()
-    constructor(private slService : ShopppingListService){}
-  private recipies: Recipie[] = [
+  
+  constructor(private slService : ShopppingListService){}
+ 
+    private recipies: Recipie[] = [
     new Recipie(
       'A test recipie',
       'this is a test',
@@ -26,10 +28,16 @@ export class RecipieService {
       ]
     ),
   ];
+  
   getRecipies() {
     // by using this way it creatrs a new copy of the array whcih is completely independant to original 
     return this.recipies.slice();
   }
+  
+  getRecipie(index:number){
+    return this.recipies.slice()[index]
+  }
+  
   addIngredientsToShopping(ingredients:Ingredient[]){
     this.slService.addIngredients(ingredients)
   }

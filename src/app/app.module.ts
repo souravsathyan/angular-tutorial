@@ -11,6 +11,9 @@ import { RecipieListComponent } from './recipies/recipie-list/recipie-list.compo
 import { RecipiesComponent } from './recipies/recipies.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { ShopppingListService } from './shopping-list/shopping-list.service';
+import { AppRoutingModule } from './app-routing.module';
+import { RecipieStartComponent } from './recipies/recipie-start/recipie-start.component';
+import { RecipieEditComponent } from './recipies/recipie-edit/recipie-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +25,13 @@ import { ShopppingListService } from './shopping-list/shopping-list.service';
     RecipiesComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    RecipieStartComponent,
+    RecipieEditComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [ShopppingListService],
   bootstrap: [AppComponent]
