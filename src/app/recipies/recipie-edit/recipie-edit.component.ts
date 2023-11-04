@@ -95,5 +95,4 @@ export class RecipieEditComponent implements OnInit {
     (<FormArray>this.recipieForm.get('ingredients')).clear()
   }
   
-
 }

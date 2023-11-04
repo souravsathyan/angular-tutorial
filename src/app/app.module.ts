@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header/header.component';
@@ -33,11 +34,12 @@ import { RecipieService } from './recipies/recipie.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    AppRoutingModule, 
   ],
-  providers: [ShopppingListService,RecipieService],
-  bootstrap: [AppComponent]
+  providers: [ShopppingListService, RecipieService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
