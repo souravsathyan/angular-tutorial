@@ -6,16 +6,23 @@ import { RecipieStartComponent } from "./recipies/recipie-start/recipie-start.co
 import { RecipieDetailComponent } from "./recipies/recipie-detail/recipie-detail.component";
 import { RecipieEditComponent } from "./recipies/recipie-edit/recipie-edit.component";
 import { ResolverService } from "./recipies/recipies-resolver.service";
+import { AuthComponent } from "./auth/auth.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes:Routes=[
     {path:'',redirectTo:'/recipies',pathMatch:'full'},
-    {path:'recipies',component:RecipiesComponent,children:[
+    {
+        path:'recipies',
+        component:RecipiesComponent,
+        canActivate:[AuthGuard],
+        children:[
         {path:'',component:RecipieStartComponent},
         {path:'new',component:RecipieEditComponent},
         {path:':id',component:RecipieDetailComponent, resolve:[ResolverService]},
         {path:':id/edit',component:RecipieEditComponent,resolve:[ResolverService]}
     ]},
-    {path:'shopping-list',component:ShoppingListComponent}
+    {path:'shopping-list',component:ShoppingListComponent},
+    {path:'auth',component:AuthComponent}
 ]
 
 @NgModule({

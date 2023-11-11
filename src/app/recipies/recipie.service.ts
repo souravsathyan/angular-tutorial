@@ -9,7 +9,7 @@ export class RecipieService {
   public recipieSelected = new Subject<Recipie>()
   
   constructor(private slService : ShopppingListService){}
- private recipies:Recipie[]
+ private recipies:Recipie[]=[]
   //   private recipies: Recipie[] = [
   //   new Recipie(
   //     'A test recipie',
@@ -31,11 +31,15 @@ export class RecipieService {
   //   ),
   // ];
   
-  getRecipies() {
-    // by using this way it creatrs a new copy of the array whcih is completely independant to original 
-    return this.recipies.slice();
-  }
-  
+    getRecipies() {
+      // by using this way it creatrs a new copy of the array whcih is completely independant to original 
+      if(this.recipies){
+        return this.recipies.slice();
+      }else{
+        return this.recipies
+      }
+    }
+    
   getRecipie(index:number){
     return this.recipies.slice()[index]
   }
