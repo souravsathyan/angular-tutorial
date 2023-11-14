@@ -2,31 +2,37 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShopppingListService } from './shopping-list.service';
 import { Subscription } from 'rxjs';
+import { LoggingService } from '../logging.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
-  styleUrls: ['./shopping-list.component.css']
+  styleUrls: ['./shopping-list.component.css'],
 })
-export class ShoppingListComponent implements OnInit,OnDestroy{
-  
-  ingredients : Ingredient[] = []
-  private subscription:Subscription
+export class ShoppingListComponent implements OnInit, OnDestroy {
+  ingredients: Ingredient[] = [];
+  private subscription: Subscription;
 
-  constructor(private shoppingService: ShopppingListService){}
-  
+  constructor(
+    private shoppingService: ShopppingListService,
+    private loggingService: LoggingService
+  ) {}
+
   ngOnInit(): void {
-    this.ingredients = this.shoppingService.getIngredient()
-    this.subscription=this.shoppingService.ingredientsChanged.subscribe((ingredients:Ingredient[])=>{
-      this.ingredients=ingredients
-    })
+    this.ingredients = this.shoppingService.getIngredient();
+    this.subscription = this.shoppingService.ingredientsChanged.subscribe(
+      (ingredients: Ingredient[]) => {
+        this.ingredients = ingredients;
+      }
+    );
+    this.loggingService.printLog('Hello from the shopping list')
   }
 
-  onEditItem(index:number){
-    this.shoppingService.startedEditing.next(index)
+  onEditItem(index: number) {
+    this.shoppingService.startedEditing.next(index);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
 }
