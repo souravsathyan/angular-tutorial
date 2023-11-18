@@ -3,13 +3,18 @@ import { Recipie } from './recipie.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShopppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { ADD_INGREDIENS } from '../shopping-list/store/shopping-list.actions';
 @Injectable()
 export class RecipieService {
-  recipieChanged=new Subject<Recipie[]>()
-  public recipieSelected = new Subject<Recipie>()
-  
-  constructor(private slService : ShopppingListService){}
- private recipies:Recipie[]=[]
+  recipieChanged = new Subject<Recipie[]>();
+  public recipieSelected = new Subject<Recipie>();
+
+  constructor(
+    private slService: ShopppingListService,
+    private store: Store<{ shoppingList: { ingredients: Ingredient[] } }>
+  ) {}
+  private recipies: Recipie[] = [];
   //   private recipies: Recipie[] = [
   //   new Recipie(
   //     'A test recipie',
@@ -30,42 +35,42 @@ export class RecipieService {
   //     ]
   //   ),
   // ];
-  
-    getRecipies() {
-      // by using this way it creatrs a new copy of the array whcih is completely independant to original 
-      if(this.recipies){
-        return this.recipies.slice();
-      }else{
-        return this.recipies
-      }
+
+  getRecipies() {
+    // by using this way it creatrs a new copy of the array whcih is completely independant to original
+    if (this.recipies) {
+      return this.recipies.slice();
+    } else {
+      return this.recipies;
     }
-    
-  getRecipie(index:number){
-    return this.recipies.slice()[index]
-  }
-  
-  addIngredientsToShopping(ingredients:Ingredient[]){
-    this.slService.addIngredients(ingredients)
   }
 
-  addRecipie(recipie:Recipie){
-    this.recipies.push(recipie)
-    this.recipieChanged.next(this.recipies.slice())
+  getRecipie(index: number) {
+    return this.recipies.slice()[index];
   }
 
-  updateRecipie(index:number,newRecipie:Recipie){
-    this.recipies[index]=newRecipie
-    this.recipieChanged.next(this.recipies.slice())
+  addIngredientsToShopping(ingredients: Ingredient[]) {
+    // this.slService.addIngredients(ingredients);
+    this.store.dispatch(ADD_INGREDIENS({ingredients:ingredients}))
   }
 
-  deleteRecipie(index:number){
-    this.recipies.splice(index,1)
-    this.recipieChanged.next(this.recipies.slice())
+  addRecipie(recipie: Recipie) {
+    this.recipies.push(recipie);
+    this.recipieChanged.next(this.recipies.slice());
   }
 
-  setRecipies(recipies:Recipie[]){
-    this.recipies = recipies
-    this.recipieChanged.next(this.recipies.slice())
+  updateRecipie(index: number, newRecipie: Recipie) {
+    this.recipies[index] = newRecipie;
+    this.recipieChanged.next(this.recipies.slice());
   }
 
+  deleteRecipie(index: number) {
+    this.recipies.splice(index, 1);
+    this.recipieChanged.next(this.recipies.slice());
+  }
+
+  setRecipies(recipies: Recipie[]) {
+    this.recipies = recipies;
+    this.recipieChanged.next(this.recipies.slice());
+  }
 }
